@@ -32,9 +32,10 @@ otherSelect.addEventListener('change', (e) => {
 // Hides the color dropdown menu 
 shirtColorMenu.style.display = 'none';
 
-
+// displays the color dropdown menu is a style is selected
 shirtStyleMenu.addEventListener('change', (e) => {
 	shirtColorMenu.style.display = '';
+	//loop through array of shirt colors to check for class and display matching elements
 	if (e.target.value === "js puns") {
 		for (let i = 0; i < color.length; i += 1) {
 			if (color[i].className === "jspun") {
@@ -58,31 +59,32 @@ shirtStyleMenu.addEventListener('change', (e) => {
 	}
 });
 
+const classList = document.querySelector('.activities');
+const classes = classList.children;
 
+// arrays for classes at the same time
+const classTimes = ['tue-morning', 'tue-afternoon', 'wed-morning', 'wed-afternoon', 'main'];
+const classesByTime = {};
+for (let i in classTimes) {
+    classesByTime[classTimes[i]] = [];
+}
 
+// loop to separate classes into arrays
+for (let i = 0; i < classes.length; i += 1) {
+    const time = classes[i].className;
+    if (classesByTime[time]) { 
+    	classesByTime[time].push(classes[i].firstElementChild); 
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+classList.addEventListener('change', () => {
+    const box = event.target;
+    const boxChecked = box.checked;
+    const time = box.parentElement.className; 
+    for (let i = 0; i < classesByTime[time].length; i++) {
+        classesByTime[time][i].disabled = (boxChecked && classesByTime[time][i] !== box);
+    }
+});
 
 
 
