@@ -242,6 +242,17 @@ function removeErrorMsg(n) {
 	}
 }
 
+// checks for valid email
+emailInput.addEventListener('keyup', () => {
+	const mail = emailInput.value;
+	if (mail.indexOf('@') === -1 || mail.indexOf('.') === -1) {
+		emailInput.style.background = 'tomato';
+		alertMessage(emailLabel, 'Please enter email in the correct format');
+	} else {
+		emailInput.style.background = '';
+		removeErrorMsg(emailLabel);
+	}
+});
 
 //call the function on the #name id to put focus on the first text input
 getFocus('name');
