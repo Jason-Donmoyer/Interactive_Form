@@ -1,21 +1,20 @@
 
-let otherSelect = document.getElementById('title');
-
-const newTextField = document.createElement('input');
-newTextField.id = 'other-title';
-newTextField.type = 'textfield';
-newTextField.placeholder = "Your Job Role";
-otherSelect.parentNode.append(newTextField);
-
-const shirtColorMenu = document.getElementById('colors-js-puns');
-const shirtColors = document.querySelector("select[id='color']");
-const color = shirtColors.children;
-const shirtStyleMenu = document.querySelector('select[name="user_design"]');
+////FOCUS////
 
 // function to put focus on an element on the form
 function getFocus(id) {
 	document.getElementById(id).focus();
 }
+
+////OTHER TEXT FIELD////
+
+//variables used with the other textfield functionality
+let otherSelect = document.getElementById('title');
+const newTextField = document.createElement('input');
+newTextField.id = 'other-title';
+newTextField.type = 'textfield';
+newTextField.placeholder = "Your Job Role";
+otherSelect.parentNode.append(newTextField);
 
 // hides text field until user checks 'other' from the dropdown menu
 newTextField.style.display = 'none';	
@@ -29,6 +28,13 @@ otherSelect.addEventListener('change', (e) => {
 	}
 });
 
+////SHIRT COLOR MENU////
+
+// variables used with the colr options menu
+const shirtColorMenu = document.getElementById('colors-js-puns');
+const shirtColors = document.querySelector("select[id='color']");
+const color = shirtColors.children;
+const shirtStyleMenu = document.querySelector('select[name="user_design"]');
 // Hides the color dropdown menu 
 shirtColorMenu.style.display = 'none';
 
@@ -59,6 +65,8 @@ shirtStyleMenu.addEventListener('change', (e) => {
 	}
 });
 
+////CLASS CONFLICTS FUNCTION////
+
 const classList = document.querySelector('.activities');
 const classes = classList.children;
 
@@ -77,6 +85,7 @@ for (let i = 0; i < classes.length; i += 1) {
     }
 }
 
+// disable checkboxes with the same class
 classList.addEventListener('change', () => {
     const box = event.target;
     const boxChecked = box.checked;
@@ -86,7 +95,58 @@ classList.addEventListener('change', () => {
     }
 });
 
+////PRICE SPAN////
+
+// function to total the cost of classes
+let conPrice = 0;
+let shopPrice = 0;
+const totalLabel = document.createElement('span');
+function totalCost(conPrice, shopPrice) {
+	const totalPrice = conPrice + shopPrice;
+	totalLabel.innerText = '';
+	totalLabel.innerText = 'Total Due: $' + totalPrice;
+	classList.appendChild(totalLabel);
+}
+
+// event listener to show the total price as the boxes are checked
+classList.addEventListener('change', () => {
+	const box = event.target;
+	const boxChecked = box.checked;
+	for (let i = 2; i < classes.length; i ++) {
+		if (classes[1].firstElementChild === box) {
+			if (boxChecked) {
+				conPrice = 200;
+			} else {
+				conPrice = 0;
+			}
+		} else if (classes[i].firstElementChild === box) {
+			if (boxChecked) {
+				shopPrice += 100;
+			} else {
+				shopPrice -= 100;
+			}
+		}
+	}
+	totalCost(conPrice, shopPrice);
+});
+
+
 
 
 //call the function on the #name id to put focus on the first text input
 getFocus('name');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
