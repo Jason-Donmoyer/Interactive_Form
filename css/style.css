@@ -150,6 +150,21 @@ button:hover {
 }
 
 /* ================================= 
+  Errors
+==================================== */
+
+.error {
+	border: 2px solid tomato;
+}
+
+.error-Message {
+	font-size: 1.5em;
+	font-style: italic;
+	font-weight: bold;
+	color: tomato;
+}
+
+/* ================================= 
   Media Queries
 ==================================== */
 

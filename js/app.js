@@ -135,7 +135,7 @@ classList.addEventListener('change', () => {
 const paymentType = document.querySelector('select[id="payment"]');
 
 const creditCard = document.querySelector('.credit-card');
-const creditNumber = document.querySelector('cc-num');
+const creditNumber = document.querySelector('#cc-num');
 const creditZip = document.querySelector('#zip');
 const creditCVV = document.querySelector('#cvv');
 
@@ -167,6 +167,80 @@ paymentType.addEventListener('change', () => {
 		bitcoin.style.display ='';
 	}
 });
+
+////FORM VALIDATION////
+
+const submitButton = document.querySelector('button');
+const nameInput = document.querySelector('#name');
+const emailLabel = document.querySelector('.email');
+const emailInput = document.querySelector('#mail');
+const errorAlert = document.querySelector('.formError');
+
+// checks for errors on the entire form
+submitButton.addEventListener('click', (e) => {
+	const name = nameInput.value;
+	const email = emailInput.value;
+	const creditNum = creditNumber.value;
+	const cvvNum = creditCVV.value;
+	const zipNum = creditZip.value;
+
+	if (name === '') {
+		nameInput.className = 'error';
+		e.preventDefault();
+	} else {
+		nameInput.className = '';
+	}
+	if (email === '') {
+		emailInput.className = 'error';
+		e.preventDefault();
+	} else {
+		emailInput.className = '';
+	}
+	if (conPrice + shopPrice < 1) {
+		e.preventDefault();
+		alertMessage(errorAlert, 'Please choose at least one');
+	} else {
+		removeErrorMsg(errorAlert);
+	}
+	if (paymentType.value === 'credit card') {
+		if (isNaN(creditNum) || creditNum.length < 13 || creditNum.length > 16) {
+			e.preventDefault();
+			creditNumber.className = 'error';
+		} else {
+			creditNumber.className = '';
+		}
+		if (isNaN(zipNum) || zipNum.length !== 5) {
+			e.preventDefault();
+			creditZip.className = 'error';
+		} else {
+			creditZip.className = '';
+		}
+		if (isNaN(cvvNum) || cvvNum.length !== 3) {
+			e.preventDefault();
+			creditCVV.className = 'error';
+		} else {
+			creditCVV.className = '';
+		}
+	}
+});
+
+// alert message shown if field not complete
+function alertMessage(n, text) {
+	const errorMsg = document.createElement('span');
+	if (n.firstElementChild) {
+		n.firstElementChild.remove();
+	}
+	errorMsg.className = 'error-Message'
+	errorMsg.innerText = text;
+	n.appendChild(errorMsg);
+}
+
+//removes error message when field is completed
+function removeErrorMsg(n) {
+	if (n.firstElementChild) {
+		n.firstElementChild.remove();
+	}
+}
 
 
 //call the function on the #name id to put focus on the first text input
