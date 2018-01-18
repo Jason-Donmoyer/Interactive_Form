@@ -130,12 +130,50 @@ classList.addEventListener('change', () => {
 	totalCost(conPrice, shopPrice);
 });
 
+////PAYMENT OPTIONS////
 
+const paymentType = document.querySelector('select[id="payment"]');
+
+const creditCard = document.querySelector('.credit-card');
+const creditNumber = document.querySelector('cc-num');
+const creditZip = document.querySelector('#zip');
+const creditCVV = document.querySelector('#cvv');
+
+const payPal = document.querySelector('.paypal');
+const bitcoin = document.querySelector('.bitcoin');
+
+// function to make credit card the default payment option
+function defaultPayment() {
+	const selection = paymentType.children;
+	selection[1].selected = true;
+	payPal.style.display = 'none';
+	bitcoin.style.display ='none';
+}
+
+// changes the payment type based on selection
+paymentType.addEventListener('change', () => {
+	const payment = event.target;
+	if (payment.value === 'credit card') {
+		creditCard.style.display = '';
+		payPal.style.display = 'none';
+		bitcoin.style.display ='none';
+	}else if (payment.value === 'paypal') {
+		creditCard.style.display = 'none';
+		payPal.style.display = '';
+		bitcoin.style.display ='none';
+	} else if (payment.value === 'bitcoin') {
+		creditCard.style.display = 'none';
+		payPal.style.display = 'none';
+		bitcoin.style.display ='';
+	}
+});
 
 
 //call the function on the #name id to put focus on the first text input
 getFocus('name');
 
+// call to set the default payment method to credit card
+defaultPayment();
 
 
 
