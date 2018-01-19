@@ -8,6 +8,8 @@ function getFocus(id) {
 
 ////OTHER TEXT FIELD////
 
+//hides the other textfield
+document.getElementById('other-title').remove();
 //variables used with the other textfield functionality
 let otherSelect = document.getElementById('title');
 const newTextField = document.createElement('input');
@@ -141,6 +143,9 @@ const creditCVV = document.querySelector('#cvv');
 
 const payPal = document.querySelector('.paypal');
 const bitcoin = document.querySelector('.bitcoin');
+
+//disables the select payment type option
+paymentType.firstElementChild.disabled = true;
 
 // function to make credit card the default payment option
 function defaultPayment() {
